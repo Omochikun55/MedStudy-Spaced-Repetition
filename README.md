@@ -1,135 +1,61 @@
-# Turborepo starter
+# MedStudy-Spaced-Repetition
 
-This Turborepo starter is maintained by the Turborepo core team.
+MedStudy Spaced Repetition System (SRS) for Medical School Entrance Exam Prep.
 
-## Using this example
+This project is a full-stack TypeScript monorepo using **Turborepo**, **Next.js** (Frontend), **NestJS** (Backend), and **Prisma** with **PostgreSQL** (Database).
 
-Run the following command:
+## Features
 
-```sh
-npx create-turbo@latest
-```
+- **Full-stack TypeScript:** Maximizing TypeScript usage for Findy score improvement.
+- **Spaced Repetition System (SRS):** Algorithm implementation for efficient learning.
+- **Markdown & KaTeX Support:** Rich text editing for complex formulas and diagrams in study cards.
+- **Modern Stack:** Next.js (App Router), NestJS, Prisma, Auth.js, Tailwind CSS.
 
-## What's inside?
+## Project Structure
 
-This Turborepo includes the following packages/apps:
+This monorepo is managed by [Turborepo](https://turborepo.com/).
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `apps/web`: Next.js application (Frontend)
+- `apps/api`: NestJS application (Backend)
+- `packages/db`: Prisma schema and database client
+- `packages/eslint-config`: Shared ESLint configurations
+- `packages/typescript-config`: Shared `tsconfig.json` files
+- `packages/ui`: Shared UI components (React)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Getting Started
 
-### Utilities
+### Prerequisites
 
-This Turborepo has some additional tools already setup for you:
+- Node.js (v18+)
+- pnpm
+- Docker (for PostgreSQL)
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Setup
 
-### Build
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Omochikun55/MedStudy-Spaced-Repetition.git
+   cd MedStudy-Spaced-Repetition
+   ```
 
-To build all apps and packages, run the following command:
+2. **Install dependencies:**
+   ```bash
+   pnpm install
+   ```
 
-```
-cd my-turborepo
+3. **Database Setup (using Docker):**
+   *(To be added in the next phase)*
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+4. **Run Development Servers:**
+   ```bash
+   pnpm dev
+   ```
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+## Development Commands
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+- `pnpm build`: Build all apps and packages
+- `pnpm dev`: Develop all apps and packages
+- `pnpm lint`: Lint all apps and packages
+- `pnpm test`: Run tests for all apps and packages
