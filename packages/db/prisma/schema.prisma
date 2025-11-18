@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 認証機能 (Auth.js/NextAuth.js) のための最小限のモデル
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  decks         Deck[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// 学習カード関連のモデル
+model Deck {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  cards     Card[]
+}
+
+model Card {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  front         String   @db.Text // Markdown/KaTeX対応
+  back          String   @db.Text // Markdown/KaTeX対応
+  deckId        String
+  deck          Deck     @relation(fields: [deckId], references: [id])
+  // SRS関連のフィールド (V2で利用)
+  easeFactor    Float    @default(2.5) // 習熟度 (SM-2アルゴリズムのE-Factor)
+  repetitions   Int      @default(0)    // 反復回数
+  interval      Int      @default(0)    // 次の復習までの間隔（日数）
+  nextReviewAt  DateTime @default(now()) // 次の復習日時
+}
