@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { CardService } from './card.service';
-import { CreateCardDto, UpdateCardDto } from './dto/card.dto';
+import { CreateCardDto, UpdateCardDto, ReviewCardDto } from './dto/card.dto';
 import { AuthGuard } from '../auth/auth.guard'; // 後で作成
 import { Request } from 'express';
 
@@ -41,6 +41,15 @@ export class CardController {
     @Req() req: AuthenticatedRequest,
   ) {
     return this.cardService.update(cardId, updateCardDto, req.user.id);
+  }
+
+  @Post(':cardId/review')
+  review(
+    @Param('cardId') cardId: string,
+    @Body() reviewCardDto: ReviewCardDto,
+    @Req() req: AuthenticatedRequest,
+  ) {
+    return this.cardService.review(cardId, reviewCardDto, req.user.id);
   }
 
   @Delete(':cardId')

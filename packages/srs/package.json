@@ -1,0 +1,23 @@
+{
+  "name": "@repo/srs",
+  "version": "0.0.0",
+  "description": "SM-2 Spaced Repetition System Algorithm Implementation",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [
+    "srs",
+    "sm2",
+    "spaced-repetition"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}

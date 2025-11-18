@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateCardDto, UpdateCardDto } from './dto/card.dto';
+import { CreateCardDto, UpdateCardDto, ReviewCardDto } from './dto/card.dto';
+import { sm2, Sm2Card } from '@repo/srs';
 
 @Injectable()
 export class CardService {
@@ -62,6 +63,29 @@ export class CardService {
     return this.prisma.card.update({
       where: { id },
       data: updateCardDto,
+    });
+  }
+
+  async review(id: string, reviewCardDto: ReviewCardDto, userId: string) {
+    const card = await this.findOne(id, userId); // Authorization check
+
+    const srsCard: Sm2Card = {
+      easeFactor: card.easeFactor,
+      repetitions: card.repetitions,
+      interval: card.interval,
+      nextReviewAt: card.nextReviewAt,
+    };
+
+    const updatedSrsCard = sm2(srsCard, reviewCardDto.quality);
+
+    return this.prisma.card.update({
+      where: { id },
+      data: {
+        easeFactor: updatedSrsCard.easeFactor,
+        repetitions: updatedSrsCard.repetitions,
+        interval: updatedSrsCard.interval,
+        nextReviewAt: updatedSrsCard.nextReviewAt,
+      },
     });
   }
 
